@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <linearGradient id="karbaladGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#10b981" />
+      <stop offset="100%" stop-color="#047857" />
+    </linearGradient>
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="12" stdDeviation="16" flood-color="#047857" flood-opacity="0.3" />
+    </filter>
+  </defs>
+  <!-- Background squircle -->
+  <rect width="512" height="512" rx="128" fill="url(#karbaladGrad)" />
+  <!-- Construction Helmet & Handshake badge -->
+  <g filter="url(#shadow)" fill="#ffffff" transform="translate(64, 64) scale(0.75)">
+    <!-- Helmet dome -->
+    <path d="M 256 70 C 160 70 80 140 70 235 L 442 235 C 432 140 352 70 256 70 Z" />
+    <!-- Helmet rib center -->
+    <path d="M 236 45 L 276 45 L 282 235 L 230 235 Z" opacity="0.9" />
+    <!-- Helmet brim -->
+    <rect x="40" y="235" width="432" height="42" rx="21" />
+    <!-- Handshake / Gear emblem below -->
+    <path d="M 120 320 C 120 300 136 284 156 284 L 356 284 C 376 284 392 300 392 320 L 392 360 C 392 410 330 450 256 450 C 182 450 120 410 120 360 Z" opacity="0.95" />
+    <!-- Checkmark inside shield -->
+    <path d="M 200 365 L 240 405 L 320 325" fill="none" stroke="#047857" stroke-width="26" stroke-linecap="round" stroke-linejoin="round" />
+  </g>
+</svg>
