@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import type { User, JobRequest } from './types';
 import { PWAInstallBanner } from './components/PWAInstallBanner';
 import { LandingPage } from './components/LandingPage';
-import { AuthModal } from './components/AuthModal';
+import { AuthModal, DIRECT_ADMIN_USER } from './components/AuthModal';
 import { JobCard } from './components/JobCard';
 import { WorkerCard } from './components/WorkerCard';
 import { CreateJobModal } from './components/CreateJobModal';
@@ -47,6 +47,120 @@ const POPULAR_CITIES = [
   'زاهدان'
 ];
 
+const INITIAL_WORKERS: User[] = [
+  DIRECT_ADMIN_USER,
+  {
+    id: 'usr_ostad_ali',
+    name: 'اوستا علی رضوانی',
+    mobile: '09121112233',
+    gender: 'آقا',
+    city: 'تهران',
+    district: 'پیروزی و نیرو هوایی',
+    ethnicity: 'فارس (ایرانی)',
+    role: 'worker',
+    specialty: 'گچ‌کاری',
+    skills: ['گچ‌بری دستی', 'سفیدکاری حرفه‌ای', 'ابزارزنی سقف', 'ترمیم ترک و نم'],
+    experienceYears: 18,
+    dailyRate: 950000,
+    bio: '۱۸ سال سابقه سفیدکاری و ابزارزنی ساختمان‌های مسکونی و تجاری. خوش‌قول و تمیزکار با اکیپ مجرب.',
+    portfolio: [
+      { title: 'گچ‌بری دور لوستر سالن پذیرایی فرمانیه', image: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=600&q=80', date: '۱۴۰۴/۱۰' },
+      { title: 'سفیدکاری برج تجاری نیلوفر', image: 'https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=600&q=80', date: '۱۴۰۴/۰۸' },
+    ],
+    balance: 240000,
+    rating: 4.9,
+    reviewCount: 32,
+    isVerified: true,
+    showPhonePublicly: true,
+    createdAt: '1404-01-10',
+  },
+  {
+    id: 'usr_baloch_reza',
+    name: 'عبدالرحیم بلوچ‌زهی',
+    mobile: '09152223344',
+    gender: 'آقا',
+    city: 'زاهدان',
+    district: 'بلوار معلم',
+    ethnicity: 'بلوچ (ایرانی)',
+    role: 'worker',
+    specialty: 'بنایی',
+    skills: ['تیغه‌چینی', 'دیوارچینی بلوک و آجر', 'شیب‌بندی بام', 'سنگ‌کاری نما'],
+    experienceYears: 12,
+    dailyRate: 850000,
+    bio: 'اوستا بنای بااخلاق، مسلط به دیوارچینی دقیق با شاقول و تراز، بدون پرتی ملات و تضمین سرعت کار.',
+    portfolio: [
+      { title: 'دیوارچینی ویلای ساحلی چابهار', image: 'https://images.unsplash.com/photo-1541888946425-d0fbb1861564?auto=format&fit=crop&w=600&q=80', date: '۱۴۰۴/۱۱' },
+    ],
+    balance: 150000,
+    rating: 4.8,
+    reviewCount: 19,
+    isVerified: true,
+    showPhonePublicly: true,
+    createdAt: '1404-02-15',
+  },
+  {
+    id: 'usr_turk_mehdi',
+    name: 'مهدی قاسم‌پور (اوستا تبریزی)',
+    mobile: '09144445566',
+    gender: 'آقا',
+    city: 'تبریز',
+    district: 'ولیعصر',
+    ethnicity: 'ترک / آذری',
+    role: 'worker',
+    specialty: 'نقاشی',
+    skills: ['رنگ روغن و پلاستیک', 'رنگ کناف و بتونه ماستیک', 'پتینه‌کاری مدرن', 'طرح سنگ'],
+    experienceYears: 15,
+    dailyRate: 900000,
+    bio: 'نقاش درجه یک ساختمانی، استفاده از بهترین برندهای رنگ بدون بو و تحویل کار کاملاً شفاف و یکنواخت.',
+    portfolio: [
+      { title: 'پتینه‌کاری برج اطلس تبریز', image: 'https://images.unsplash.com/photo-1589939705384-5185137a7f0f?auto=format&fit=crop&w=600&q=80', date: '۱۴۰۴/۰۹' },
+    ],
+    balance: 310000,
+    rating: 4.9,
+    reviewCount: 22,
+    isVerified: true,
+    showPhonePublicly: true,
+    createdAt: '1404-04-12',
+  },
+];
+
+const INITIAL_JOBS: JobRequest[] = [
+  {
+    id: 'job_gach_teh',
+    employerId: 'usr_emp_hamid',
+    employerName: 'مهندس حمید کاظمی',
+    employerPhone: '09128889900',
+    title: 'سفیدکاری و لکه‌گیری سقف و دیوار واحد ۹۵ متری',
+    category: 'گچ‌کاری',
+    requiredSkills: ['سفیدکاری', 'لکه‌گیری', 'ترمیم نم'],
+    city: 'تهران',
+    address: 'سعادت‌آباد، میدان کاج، خیابان مروارید',
+    budget: 3800000,
+    wageType: 'کنتراکی (پروژه‌ای)',
+    description: 'یک واحد آپارتمان مسکونی تخلیه شده نیاز به سفیدکاری مجدد و ترمیم جای لوله‌کشی شوفاژ دارد. داربست و نردبان در محل آماده است و تسویه حساب بلافاصله پس از اتمام انجام می‌شود.',
+    status: 'open',
+    createdAt: '۱۴۰۴/۱۲/۰۱',
+    updatedAt: '۱۴۰۴/۱۲/۰۱',
+  },
+  {
+    id: 'job_bana_zahedan',
+    employerId: 'usr_emp_hamid',
+    employerName: 'پیمانکاری برادران کاظمی',
+    employerPhone: '09128889900',
+    title: 'دیوارچینی محوطه سوله صنعتی با بلوک سیمانی',
+    category: 'بنایی',
+    requiredSkills: ['تیغه‌چینی', 'دیوارچینی بلوک'],
+    city: 'زاهدان',
+    address: 'شهرک صنعتی کامبوزیا، خیابان صنعت ۴',
+    budget: 950000,
+    wageType: 'روزمزد',
+    description: 'نیاز به ۲ نفر اوستا بنای ماهر و دست به کار جهت دیوارچینی دور سوله. مصالح پای کار است و ناهار به عهده کارفرما می‌باشد. پرداخت به صورت روزانه نقد.',
+    status: 'open',
+    createdAt: '۱۴۰۴/۱۲/۰۲',
+    updatedAt: '۱۴۰۴/۱۲/۰۲',
+  },
+];
+
 export default function App() {
   const [currentUser, setCurrentUser] = useState<User | null>(() => {
     try {
@@ -83,8 +197,8 @@ export default function App() {
   } | null>(null);
 
   // Data
-  const [jobs, setJobs] = useState<JobRequest[]>([]);
-  const [workers, setWorkers] = useState<User[]>([]);
+  const [jobs, setJobs] = useState<JobRequest[]>(INITIAL_JOBS);
+  const [workers, setWorkers] = useState<User[]>(INITIAL_WORKERS);
   const [loading, setLoading] = useState(false);
 
   // Search & Filters
@@ -105,12 +219,21 @@ export default function App() {
       if (minBudget) params.append('minBudget', minBudget);
 
       const res = await fetch(`/api/jobs?${params.toString()}`);
-      if (res.ok) setJobs(await res.json());
-    } catch (err) {
-      console.error('Failed to load jobs:', err);
-    } finally {
-      setLoading(false);
+      if (res.ok) {
+        setJobs(await res.json());
+        setLoading(false);
+        return;
+      }
+    } catch {
+      // Static fallback for Cloudflare Pages
     }
+
+    let filtered = [...INITIAL_JOBS];
+    if (selectedCategory !== 'همه') filtered = filtered.filter(j => j.category === selectedCategory);
+    if (selectedCity !== 'همه') filtered = filtered.filter(j => j.city === selectedCity);
+    if (searchQuery) filtered = filtered.filter(j => j.title.includes(searchQuery) || j.description.includes(searchQuery));
+    setJobs(filtered);
+    setLoading(false);
   };
 
   const fetchWorkers = async () => {
@@ -123,12 +246,22 @@ export default function App() {
       if (selectedEthnicity !== 'همه') params.append('ethnicity', selectedEthnicity);
 
       const res = await fetch(`/api/workers?${params.toString()}`);
-      if (res.ok) setWorkers(await res.json());
-    } catch (err) {
-      console.error('Failed to load workers:', err);
-    } finally {
-      setLoading(false);
+      if (res.ok) {
+        setWorkers(await res.json());
+        setLoading(false);
+        return;
+      }
+    } catch {
+      // Static fallback for Cloudflare Pages
     }
+
+    let filtered = [...INITIAL_WORKERS];
+    if (selectedCategory !== 'همه') filtered = filtered.filter(w => w.specialty === selectedCategory);
+    if (selectedCity !== 'همه') filtered = filtered.filter(w => w.city === selectedCity);
+    if (selectedEthnicity !== 'همه') filtered = filtered.filter(w => w.ethnicity === selectedEthnicity);
+    if (searchQuery) filtered = filtered.filter(w => w.name.includes(searchQuery) || (w.specialty && w.specialty.includes(searchQuery)));
+    setWorkers(filtered);
+    setLoading(false);
   };
 
   useEffect(() => {
@@ -166,10 +299,28 @@ export default function App() {
           workerPhone: currentUser.mobile,
         }),
       });
-      if (res.ok) fetchJobs();
-    } catch (err) {
-      console.error('Error accepting job:', err);
+      if (res.ok) {
+        fetchJobs();
+        return;
+      }
+    } catch {
+      // Fallback
     }
+
+    // Static update
+    setJobs(prev =>
+      prev.map(j =>
+        j.id === jobId
+          ? {
+              ...j,
+              status: 'accepted',
+              assignedWorkerId: currentUser.id,
+              assignedWorkerName: currentUser.name,
+              assignedWorkerPhone: currentUser.mobile,
+            }
+          : j
+      )
+    );
   };
 
   const handleCancelJob = async (jobId: string, reason: string) => {
@@ -183,10 +334,18 @@ export default function App() {
           reason,
         }),
       });
-      if (res.ok) fetchJobs();
-    } catch (err) {
-      console.error('Error cancelling job:', err);
+      if (res.ok) {
+        fetchJobs();
+        return;
+      }
+    } catch {
+      // Fallback
     }
+
+    // Static update
+    setJobs(prev =>
+      prev.map(j => (j.id === jobId ? { ...j, status: 'cancelled', cancelReason: reason } : j))
+    );
   };
 
   const handleCompleteJob = async (jobId: string) => {
@@ -199,10 +358,15 @@ export default function App() {
           userName: currentUser?.name,
         }),
       });
-      if (res.ok) fetchJobs();
-    } catch (err) {
-      console.error('Error completing job:', err);
+      if (res.ok) {
+        fetchJobs();
+        return;
+      }
+    } catch {
+      // Fallback
     }
+
+    setJobs(prev => prev.map(j => (j.id === jobId ? { ...j, status: 'completed' } : j)));
   };
 
   const resetFilters = () => {
@@ -219,7 +383,10 @@ export default function App() {
     return (
       <div className="min-h-screen bg-slate-50 text-slate-900 font-sans">
         <PWAInstallBanner />
-        <LandingPage onStart={() => setIsAuthOpen(true)} />
+        <LandingPage
+          onStart={() => setIsAuthOpen(true)}
+          onAdminDirectLogin={() => handleLoginSuccess(DIRECT_ADMIN_USER)}
+        />
         <AuthModal
           isOpen={isAuthOpen}
           onClose={() => setIsAuthOpen(false)}

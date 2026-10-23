@@ -3,9 +3,10 @@ import { ArrowLeft, PhoneCall, ShieldCheck, Zap } from 'lucide-react';
 
 interface LandingPageProps {
   onStart: () => void;
+  onAdminDirectLogin?: () => void;
 }
 
-export const LandingPage: React.FC<LandingPageProps> = ({ onStart }) => {
+export const LandingPage: React.FC<LandingPageProps> = ({ onStart, onAdminDirectLogin }) => {
   return (
     <div className="min-h-screen bg-slate-50 flex flex-col justify-between">
       {/* Top Bar */}
@@ -79,10 +80,16 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onStart }) => {
       <footer className="py-3 px-4 text-center text-[11px] text-slate-500 border-t border-slate-200 bg-white flex items-center justify-between max-w-sm mx-auto w-full">
         <span>کاربلد © ۱۴۰۴</span>
         <button
-          onClick={onStart}
-          className="text-[11px] font-bold text-slate-500 hover:text-emerald-700"
+          onClick={() => {
+            if (onAdminDirectLogin) {
+              onAdminDirectLogin();
+            } else {
+              onStart();
+            }
+          }}
+          className="text-[11px] font-bold text-emerald-700 hover:underline"
         >
-          ورود مدیریت (Admin)
+          ورود مستقیم مدیریت (Admin)
         </button>
       </footer>
     </div>
