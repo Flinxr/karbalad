@@ -46,7 +46,10 @@ const INITIAL_SEED: DatabaseSchema = {
       skills: ['گچ‌بری دستی', 'سفیدکاری حرفه‌ای', 'ابزارزنی سقف', 'ترمیم ترک و نم'],
       experienceYears: 18,
       dailyRate: 950000,
+      workingHours: '۰۸:۰۰ الی ۱۷:۰۰',
+      mealInclusion: 'با ناهار و صبحانه',
       bio: '۱۸ سال سابقه سفیدکاری و ابزارزنی ساختمان‌های مسکونی و تجاری. خوش‌قول و تمیزکار با اکیپ مجرب.',
+      fullBio: 'استاد کار گچ‌کار و گچ‌بر دستی با ۱۸ سال سابقه مستمر در پروژه‌های لوکس مسکونی و تجاری تهران.\nدارای کلیه داربست‌ها و ابزارآلات حرفه‌ای لکه‌گیری و ابزارزنی.\nتضمین تحویل کار کاملاً صاف و بدون موج همراه با اکیپ مجرب و منظم.',
       portfolio: [
         { title: 'گچ‌بری دور لوستر سالن پذیرایی فرمانیه', image: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=600&q=80', date: '۱۴۰۴/۱۰' },
         { title: 'سفیدکاری برج تجاری نیلوفر', image: 'https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=600&q=80', date: '۱۴۰۴/۰۸' },
@@ -72,7 +75,10 @@ const INITIAL_SEED: DatabaseSchema = {
       skills: ['تیغه‌چینی', 'دیوارچینی بلوک و آجر', 'شیب‌بندی بام', 'سنگ‌کاری نما'],
       experienceYears: 12,
       dailyRate: 850000,
+      workingHours: '۰۷:۳۰ الی ۱۶:۳۰',
+      mealInclusion: 'با ناهار',
       bio: 'اوستا بنای بااخلاق، مسلط به دیوارچینی دقیق با شاقول و تراز، بدون پرتی ملات و تضمین سرعت کار.',
+      fullBio: 'اوستا بنای با سابقه در استان سیستان و بلوچستان.\nتخصص در دیوارچینی بلوک و آجر با کمترین پرت ملات و دقت بالا.\nمسلط به شاقول‌کاری زوایا و دور سوله و شیب‌بندی پشت بام.',
       portfolio: [
         { title: 'دیوارچینی ویلای ساحلی چابهار', image: 'https://images.unsplash.com/photo-1541888946425-d0fbb1861564?auto=format&fit=crop&w=600&q=80', date: '۱۴۰۴/۱۱' },
       ],
@@ -97,7 +103,10 @@ const INITIAL_SEED: DatabaseSchema = {
       skills: ['تخریب بتن و آجر', 'بارگیری نخاله', 'حمل مصالح طبقات', 'نظافت اساسی کارگاه'],
       experienceYears: 8,
       dailyRate: 700000,
+      workingHours: '۰۸:۰۰ الی ۱۷:۰۰',
+      mealInclusion: 'بدون ناهار و صبحانه',
       bio: 'کارگر کاری و باانرژی، غیرسیگاری و امین، آماده کار روزمزد و پیمانکاری در پروژه‌های عمرانی مشهد.',
+      fullBio: '۸ سال سابقه کارگری ساده و تخریب در مشهد مقدس.\nغیرسیگاری، بسیار پرتلاش و منظم در جابه‌جایی مصالح و جمع‌آوری نخاله.\nآماده پذیرش کارهای سنگین کارگاهی و تخریب سرویس و آشپزخانه.',
       portfolio: [],
       balance: 80000,
       rating: 5.0,
@@ -120,7 +129,10 @@ const INITIAL_SEED: DatabaseSchema = {
       skills: ['رنگ روغن و پلاستیک', 'رنگ کناف و بتونه ماستیک', 'پتینه‌کاری مدرن', 'طرح سنگ'],
       experienceYears: 15,
       dailyRate: 900000,
+      workingHours: '۰۸:۰۰ الی ۱۷:۳۰',
+      mealInclusion: 'با ناهار و صبحانه',
       bio: 'نقاش درجه یک ساختمانی، استفاده از بهترین برندهای رنگ بدون بو و تحویل کار کاملاً شفاف و یکنواخت.',
+      fullBio: 'استاد نقاش ساختمانی با ۱۵ سال تجربه کار در تبریز و استان آذربایجان شرقی.\nمتخصص رنگ‌کاری کناف با بتونه ماستیک کی‌پلاس و پتینه‌کاری مدرن دیوارهای اداری و تجاری.\nتحویل کارگاه کاملاً تمیز و شسته‌شده.',
       portfolio: [
         { title: 'پتینه‌کاری برج اطلس تبریز', image: 'https://images.unsplash.com/photo-1589939705384-5185137a7f0f?auto=format&fit=crop&w=600&q=80', date: '۱۴۰۴/۰۹' },
       ],
@@ -145,7 +157,10 @@ const INITIAL_SEED: DatabaseSchema = {
       skills: ['لوله‌کشی ۵ لایه و نیوپایپ', 'نصب پکیج و رادیاتور', 'تشخیص نشتی با دستگاه', 'تعمیر شیرآلات توکار'],
       experienceYears: 10,
       dailyRate: 920000,
+      workingHours: '۰۸:۰۰ الی ۱۶:۳۰',
+      mealInclusion: 'توافقی',
       bio: 'تکنسین تاسیسات و لوله‌کشی با مدرک فنی و حرفه‌ای. رفع نم و نشتی در اسرع وقت با ارائه ضمانت کتبی.',
+      fullBio: 'تکنسین رسمی تاسیسات ساختمان در اصفهان.\nارائه خدمات لوله‌کشی سرد و گرم، فاضلاب و ۵ لایه با دستگاه تست فشار.\nارائه ضمانت کتبی کیفیت لوله‌کشی.',
       portfolio: [],
       balance: 190000,
       rating: 4.7,
@@ -493,7 +508,10 @@ app.post('/api/auth/register', (req, res) => {
     skills,
     experienceYears,
     dailyRate,
+    workingHours,
+    mealInclusion,
     bio,
+    fullBio,
   } = req.body;
 
   if (!name || !mobile || !password || !city || !ethnicity) {
@@ -520,7 +538,10 @@ app.post('/api/auth/register', (req, res) => {
     skills: Array.isArray(skills) ? skills : [],
     experienceYears: Number(experienceYears) || 1,
     dailyRate: Number(dailyRate) || (role === 'worker' ? 700000 : 0),
+    workingHours: workingHours || (role === 'worker' ? '۰۸:۰۰ الی ۱۷:۰۰' : undefined),
+    mealInclusion: mealInclusion || (role === 'worker' ? 'با ناهار و صبحانه' : undefined),
     bio: bio?.trim() || '',
+    fullBio: fullBio?.trim() || '',
     portfolio: [],
     balance: 50000, // Gift initial credit
     rating: 5.0,
@@ -540,7 +561,29 @@ app.post('/api/auth/register', (req, res) => {
 });
 
 app.put('/api/auth/profile', (req, res) => {
-  const { userId, bio, skills, portfolio, showPhonePublicly, dailyRate, specialty } = req.body;
+  const {
+    userId,
+    name,
+    mobile,
+    avatar,
+    role,
+    city,
+    district,
+    ethnicity,
+    gender,
+    specialty,
+    skills,
+    experienceYears,
+    dailyRate,
+    workingHours,
+    shift,
+    mealInclusion,
+    bio,
+    fullBio,
+    portfolio,
+    showPhonePublicly,
+  } = req.body;
+
   if (!userId) {
     return res.status(400).json({ error: 'شناسه کاربر الزامی است' });
   }
@@ -551,16 +594,29 @@ app.put('/api/auth/profile', (req, res) => {
   }
 
   const user = db.users[index];
-  if (bio !== undefined) user.bio = bio;
+  if (name !== undefined && name.trim()) user.name = name.trim();
+  if (mobile !== undefined && mobile.trim()) user.mobile = mobile.trim();
+  if (avatar !== undefined) user.avatar = avatar;
+  if (role !== undefined) user.role = role;
+  if (city !== undefined) user.city = city.trim();
+  if (district !== undefined) user.district = district.trim();
+  if (ethnicity !== undefined) user.ethnicity = ethnicity;
+  if (gender !== undefined) user.gender = gender;
+  if (specialty !== undefined) user.specialty = specialty;
   if (skills !== undefined) user.skills = skills;
+  if (experienceYears !== undefined) user.experienceYears = Number(experienceYears) || 0;
+  if (dailyRate !== undefined) user.dailyRate = Number(dailyRate);
+  if (workingHours !== undefined) user.workingHours = workingHours;
+  if (shift !== undefined) user.shift = shift;
+  if (mealInclusion !== undefined) user.mealInclusion = mealInclusion;
+  if (bio !== undefined) user.bio = bio;
+  if (fullBio !== undefined) user.fullBio = fullBio;
   if (portfolio !== undefined) user.portfolio = portfolio;
   if (showPhonePublicly !== undefined) user.showPhonePublicly = showPhonePublicly;
-  if (dailyRate !== undefined) user.dailyRate = Number(dailyRate);
-  if (specialty !== undefined) user.specialty = specialty;
 
   db.users[index] = user;
   writeDb(db);
-  logEvent('SECURITY_CHECK', `بروزرسانی مشخصات پروفایل توسط ${user.name}`, req, user.id, user.name);
+  logEvent('SECURITY_CHECK', `بروزرسانی مشخصات پروفایل و وضعیت کاری توسط ${user.name} (نقش: ${user.role})`, req, user.id, user.name);
 
   const safeUser = { ...user };
   delete safeUser.password;
@@ -675,10 +731,12 @@ app.get('/api/jobs', (req, res) => {
 });
 
 app.post('/api/jobs', (req, res) => {
-  const { employerId, employerName, employerPhone, title, category, requiredSkills, city, address, budget, wageType, description } = req.body;
+  const { employerId, employerName, employerPhone, title, category, requiredSkills, city, address, budget, wageType, description, createdAt } = req.body;
   if (!employerId || !title || !category || !city || !description) {
     return res.status(400).json({ error: 'لطفاً مشخصات کامل نیازمندی را وارد کنید' });
   }
+
+  const nowTimestamp = `${new Date().toLocaleDateString('fa-IR')} - ${new Date().toLocaleTimeString('fa-IR', { hour: '2-digit', minute: '2-digit' })}`;
 
   const db = readDb();
   const newJob: JobRequest = {
@@ -695,8 +753,8 @@ app.post('/api/jobs', (req, res) => {
     wageType: wageType || 'کنتراکی (پروژه‌ای)',
     description: description.trim(),
     status: 'open',
-    createdAt: new Date().toLocaleDateString('fa-IR'),
-    updatedAt: new Date().toLocaleDateString('fa-IR'),
+    createdAt: createdAt || nowTimestamp,
+    updatedAt: nowTimestamp,
   };
 
   db.jobs.push(newJob);

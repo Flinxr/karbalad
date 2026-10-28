@@ -10,6 +10,7 @@ import { InAppChatModal } from './components/InAppChatModal';
 import { ReviewModal } from './components/ReviewModal';
 import { WalletModal } from './components/WalletModal';
 import { AdminPanelModal } from './components/AdminPanelModal';
+import { ProfileModal } from './components/ProfileModal';
 import {
   Search,
   Plus,
@@ -20,7 +21,8 @@ import {
   Shield,
   LogOut,
   SlidersHorizontal,
-  RotateCcw
+  RotateCcw,
+  User as UserIcon
 } from 'lucide-react';
 
 const CATEGORIES = [
@@ -180,6 +182,7 @@ export default function App() {
   const [isCreateJobOpen, setIsCreateJobOpen] = useState(false);
   const [isWalletOpen, setIsWalletOpen] = useState(false);
   const [isAdminOpen, setIsAdminOpen] = useState(false);
+  const [isProfileOpen, setIsProfileOpen] = useState(false);
 
   // Active chat
   const [activeChat, setActiveChat] = useState<{
@@ -385,6 +388,10 @@ export default function App() {
         <PWAInstallBanner />
         <LandingPage
           onStart={() => setIsAuthOpen(true)}
+          onBrowseNeeds={() => {
+            setActiveTab('worker');
+            setShowLanding(false);
+          }}
           onAdminDirectLogin={() => handleLoginSuccess(DIRECT_ADMIN_USER)}
         />
         <AuthModal
@@ -460,37 +467,27 @@ export default function App() {
           </div>
         </div>
 
-        {/* Clean Segmented Tab Control */}
+        {/* Clean Segmented Tab Control: Only 2 Tabs (کارگران & نیازمندی‌ها) */}
         <div className="max-w-md mx-auto px-3.5 pb-2">
-          <div className="grid grid-cols-3 gap-1 p-1 bg-slate-100 rounded-xl text-xs font-bold">
+          <div className="grid grid-cols-2 gap-1 p-1 bg-slate-100 rounded-xl text-xs font-bold">
             <button
               onClick={() => setActiveTab('employer')}
-              className={`h-8 rounded-lg transition-all flex items-center justify-center gap-1 ${
-                activeTab === 'employer' ? 'bg-white text-emerald-800 shadow-2xs' : 'text-slate-600'
+              className={`h-8 rounded-lg transition-all flex items-center justify-center gap-1.5 ${
+                activeTab === 'employer' ? 'bg-white text-emerald-800 shadow-2xs font-extrabold' : 'text-slate-600'
               }`}
             >
-              <Users className="w-3.5 h-3.5" />
+              <Users className="w-4 h-4 text-emerald-700" />
               <span>کارگران</span>
             </button>
 
             <button
               onClick={() => setActiveTab('worker')}
-              className={`h-8 rounded-lg transition-all flex items-center justify-center gap-1 ${
-                activeTab === 'worker' ? 'bg-white text-emerald-800 shadow-2xs' : 'text-slate-600'
+              className={`h-8 rounded-lg transition-all flex items-center justify-center gap-1.5 ${
+                activeTab === 'worker' ? 'bg-white text-emerald-800 shadow-2xs font-extrabold' : 'text-slate-600'
               }`}
             >
-              <Briefcase className="w-3.5 h-3.5" />
+              <Briefcase className="w-4 h-4 text-emerald-700" />
               <span>نیازمندی‌ها</span>
-            </button>
-
-            <button
-              onClick={() => setActiveTab('history')}
-              className={`h-8 rounded-lg transition-all flex items-center justify-center gap-1 ${
-                activeTab === 'history' ? 'bg-white text-emerald-800 shadow-2xs' : 'text-slate-600'
-              }`}
-            >
-              <Clock className="w-3.5 h-3.5" />
-              <span>کارهای من</span>
             </button>
           </div>
         </div>
@@ -766,12 +763,12 @@ export default function App() {
         )}
       </main>
 
-      {/* Slim Fixed Bottom Bar with Center Action */}
+      {/* Slim Fixed Bottom Bar with 5 Action items */}
       <nav className="fixed bottom-0 left-0 right-0 z-40 bg-white/95 backdrop-blur-md border-t border-slate-200">
-        <div className="max-w-md mx-auto grid grid-cols-4 items-center h-14 px-2">
+        <div className="max-w-md mx-auto grid grid-cols-5 items-center h-14 px-1.5">
           <button
             onClick={() => setActiveTab('employer')}
-            className={`flex flex-col items-center justify-center transition-colors ${
+            className={`flex flex-col items-center justify-center transition-colors cursor-pointer ${
               activeTab === 'employer' ? 'text-emerald-700 font-bold' : 'text-slate-500'
             }`}
           >
@@ -781,7 +778,7 @@ export default function App() {
 
           <button
             onClick={() => setActiveTab('worker')}
-            className={`flex flex-col items-center justify-center transition-colors ${
+            className={`flex flex-col items-center justify-center transition-colors cursor-pointer ${
               activeTab === 'worker' ? 'text-emerald-700 font-bold' : 'text-slate-500'
             }`}
           >
@@ -795,7 +792,7 @@ export default function App() {
               if (!currentUser) setIsAuthOpen(true);
               else setIsCreateJobOpen(true);
             }}
-            className="flex flex-col items-center justify-center text-emerald-800 font-bold active:scale-95 transition-transform"
+            className="flex flex-col items-center justify-center text-emerald-800 font-bold active:scale-95 transition-transform cursor-pointer"
           >
             <div className="w-8 h-8 rounded-full bg-emerald-700 text-white flex items-center justify-center shadow-sm">
               <Plus className="w-4.5 h-4.5" />
@@ -803,12 +800,31 @@ export default function App() {
             <span className="text-[10px] mt-0.5">ثبت آگهی</span>
           </button>
 
+          {/* Profile CTA - Placed to the left of New Job CTA */}
+          <button
+            onClick={() => {
+              if (!currentUser) setIsAuthOpen(true);
+              else setIsProfileOpen(true);
+            }}
+            className={`flex flex-col items-center justify-center transition-colors cursor-pointer ${
+              isProfileOpen ? 'text-emerald-700 font-bold' : 'text-slate-500 hover:text-slate-800'
+            }`}
+          >
+            <div className="relative">
+              <UserIcon className="w-4.5 h-4.5" />
+              {currentUser && (currentUser.role === 'worker' || currentUser.role === 'both') && (
+                <span className="absolute -top-0.5 -right-0.5 w-2 h-2 rounded-full bg-emerald-500 ring-1 ring-white" />
+              )}
+            </div>
+            <span className="text-[10px] mt-0.5">پروفایل</span>
+          </button>
+
           <button
             onClick={() => {
               if (!currentUser) setIsAuthOpen(true);
               else setActiveTab('history');
             }}
-            className={`flex flex-col items-center justify-center transition-colors ${
+            className={`flex flex-col items-center justify-center transition-colors cursor-pointer ${
               activeTab === 'history' ? 'text-emerald-700 font-bold' : 'text-slate-500'
             }`}
           >
@@ -874,6 +890,17 @@ export default function App() {
               }}
             />
           )}
+
+          <ProfileModal
+            isOpen={isProfileOpen}
+            onClose={() => setIsProfileOpen(false)}
+            currentUser={currentUser}
+            onProfileUpdated={updated => {
+              setCurrentUser(updated);
+              localStorage.setItem('karbalad_user', JSON.stringify(updated));
+              fetchWorkers();
+            }}
+          />
         </>
       )}
 

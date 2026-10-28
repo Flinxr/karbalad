@@ -18,6 +18,11 @@ export interface User {
     image: string;
     date?: string;
   }>;
+  avatar?: string;
+  fullBio?: string;
+  workingHours?: string;
+  shift?: string;
+  mealInclusion?: 'با ناهار و صبحانه' | 'بدون ناهار و صبحانه' | 'با صبحانه' | 'با ناهار' | 'با ناهار و شام' | 'توافقی';
   balance: number;
   rating: number;
   reviewCount: number;

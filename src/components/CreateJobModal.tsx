@@ -66,6 +66,7 @@ export const CreateJobModal: React.FC<CreateJobModalProps> = ({
           budget: Number(budget.replace(/\D/g, '')) || 0,
           wageType,
           description: description.trim(),
+          createdAt: `${new Date().toLocaleDateString('fa-IR')} - ${new Date().toLocaleTimeString('fa-IR', { hour: '2-digit', minute: '2-digit' })}`,
         }),
       });
       const data = await res.json();
@@ -208,24 +209,34 @@ export const CreateJobModal: React.FC<CreateJobModalProps> = ({
 
           {/* Description */}
           <div>
-            <label className="text-slate-600 block mb-0.5">شرح کار:</label>
+            <label className="text-slate-700 font-bold block mb-0.5">شرح کار کامل و واضح:</label>
             <textarea
-              rows={2}
+              rows={3}
               value={description}
               onChange={e => setDescription(e.target.value)}
-              placeholder="توضیحات لازم، متراژ، مصالح و شرایط تسویه..."
-              className="w-full p-2 rounded-lg bg-slate-50 border border-slate-200 text-xs resize-none"
+              placeholder="شرح کار کامل و واضح (شامل متراژ، نوع مصالح، تجهیزات کارگاه و شرایط تسویه‌حساب...)"
+              className="w-full p-2.5 rounded-lg bg-slate-50 border border-slate-200 text-xs resize-none font-medium focus:ring-1 focus:ring-emerald-500"
               required
             />
           </div>
 
-          <button
-            type="submit"
-            disabled={loading}
-            className="w-full h-9.5 bg-emerald-700 hover:bg-emerald-800 text-white font-bold text-xs rounded-xl transition-all disabled:opacity-50 mt-1"
-          >
-            {loading ? 'در حال انتشار...' : 'انتشار نیازمندی'}
-          </button>
+          {/* Date & Time Timestamp Display and Submit */}
+          <div className="pt-1.5 space-y-1.5 text-center">
+            <div className="flex items-center justify-center gap-1.5 text-[11px] text-slate-600 bg-slate-100/80 p-2 rounded-xl border border-slate-200/80 font-bold">
+              <span>تاریخ و ساعت ثبت:</span>
+              <span className="text-emerald-800 font-mono font-bold" dir="ltr">
+                {new Date().toLocaleDateString('fa-IR')} - {new Date().toLocaleTimeString('fa-IR', { hour: '2-digit', minute: '2-digit' })}
+              </span>
+            </div>
+
+            <button
+              type="submit"
+              disabled={loading}
+              className="w-full h-10 bg-emerald-700 hover:bg-emerald-800 active:scale-[0.98] text-white font-bold text-xs rounded-xl transition-all disabled:opacity-50 flex items-center justify-center gap-1.5 cursor-pointer shadow-xs"
+            >
+              {loading ? 'در حال انتشار...' : 'انتشار نیازمندی'}
+            </button>
+          </div>
         </form>
       </div>
     </div>

@@ -3,10 +3,11 @@ import { ArrowLeft, PhoneCall, ShieldCheck, Zap } from 'lucide-react';
 
 interface LandingPageProps {
   onStart: () => void;
+  onBrowseNeeds?: () => void;
   onAdminDirectLogin?: () => void;
 }
 
-export const LandingPage: React.FC<LandingPageProps> = ({ onStart, onAdminDirectLogin }) => {
+export const LandingPage: React.FC<LandingPageProps> = ({ onStart, onBrowseNeeds, onAdminDirectLogin }) => {
   return (
     <div className="min-h-screen bg-slate-50 flex flex-col justify-between">
       {/* Top Bar */}
@@ -44,17 +45,21 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onStart, onAdminDirect
         </div>
 
         {/* Action Button */}
-        <div className="mt-6 space-y-2">
+        <div className="mt-6 space-y-2.5">
           <button
             onClick={onStart}
-            className="w-full h-11 bg-emerald-700 hover:bg-emerald-800 active:scale-[0.98] text-white font-bold text-sm rounded-xl shadow-sm flex items-center justify-center gap-2 transition-all"
+            className="w-full h-11 bg-emerald-700 hover:bg-emerald-800 active:scale-[0.98] text-white font-bold text-sm rounded-xl shadow-sm flex items-center justify-center gap-2 transition-all cursor-pointer"
           >
-            <span>ورود و شروع به کار</span>
+            <span>ورود و ثبت‌نام</span>
             <ArrowLeft className="w-4 h-4" />
           </button>
-          <p className="text-[11px] text-slate-500">
-            ورود سریع با شماره تلفن همراه
-          </p>
+
+          <button
+            onClick={onBrowseNeeds || onStart}
+            className="w-full py-1 text-xs text-slate-700 hover:text-emerald-800 font-bold hover:underline transition-colors block text-center"
+          >
+            نیازمندی‌ها
+          </button>
         </div>
 
         {/* 3 Compact Trust Bullets */}
@@ -78,7 +83,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onStart, onAdminDirect
 
       {/* Minimal Footer */}
       <footer className="py-3 px-4 text-center text-[11px] text-slate-500 border-t border-slate-200 bg-white flex items-center justify-between max-w-sm mx-auto w-full">
-        <span>کاربلد © ۱۴۰۴</span>
+        <span>کاربلد © ۱۴۰۵</span>
         <button
           onClick={() => {
             if (onAdminDirectLogin) {

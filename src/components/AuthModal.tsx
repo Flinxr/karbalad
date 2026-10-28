@@ -69,6 +69,11 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, onLoginSu
   const [role, setRole] = useState<'worker' | 'employer'>('worker');
   const [specialty, setSpecialty] = useState('گچ‌کاری');
   const [experienceYears, setExperienceYears] = useState(5);
+  const [dailyRate, setDailyRate] = useState(850000);
+  const [workingHours, setWorkingHours] = useState('۰۸:۰۰ الی ۱۷:۰۰');
+  const [mealInclusion, setMealInclusion] = useState<'با ناهار و صبحانه' | 'بدون ناهار و صبحانه' | 'با صبحانه' | 'با ناهار' | 'با ناهار و شام' | 'توافقی'>('با ناهار و صبحانه');
+  const [bio, setBio] = useState('');
+  const [fullBio, setFullBio] = useState('');
 
   if (!isOpen) return null;
 
@@ -216,6 +221,11 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, onLoginSu
       role,
       specialty: role === 'worker' ? specialty : undefined,
       experienceYears: Number(experienceYears) || 1,
+      dailyRate: role === 'worker' ? Number(dailyRate) || 850000 : 0,
+      workingHours: role === 'worker' ? workingHours : undefined,
+      mealInclusion: role === 'worker' ? mealInclusion : undefined,
+      bio: bio.trim(),
+      fullBio: fullBio.trim(),
       balance: 50000,
       rating: 5.0,
       reviewCount: 0,
@@ -240,6 +250,11 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, onLoginSu
           role,
           specialty: role === 'worker' ? specialty : undefined,
           experienceYears: Number(experienceYears) || 1,
+          dailyRate: role === 'worker' ? Number(dailyRate) || 850000 : 0,
+          workingHours: role === 'worker' ? workingHours : undefined,
+          mealInclusion: role === 'worker' ? mealInclusion : undefined,
+          bio: bio.trim(),
+          fullBio: fullBio.trim(),
         }),
       });
       setLoading(false);
@@ -261,23 +276,28 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, onLoginSu
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center bg-black/60 backdrop-blur-xs p-0 sm:p-3">
-      <div className="w-full max-w-xs sm:max-w-sm bg-white rounded-t-2xl sm:rounded-2xl shadow-xl p-4 overflow-y-auto max-h-[90vh] border border-slate-100">
-        {/* Header */}
-        <div className="flex items-center justify-between pb-2.5 border-b border-slate-100">
-          <div className="flex items-center gap-2">
-            <span className="w-6 h-6 rounded-lg bg-emerald-700 text-white flex items-center justify-center font-bold text-xs">
+    <div className="fixed inset-0 z-50 bg-slate-50 w-full h-full min-h-screen overflow-y-auto flex flex-col justify-between">
+      <div className="w-full max-w-md mx-auto min-h-screen flex flex-col justify-between p-4 sm:p-6 bg-white shadow-2xl">
+        {/* Top Header */}
+        <div className="flex items-center justify-between pb-3.5 border-b border-slate-100">
+          <div className="flex items-center gap-2.5">
+            <span className="w-8 h-8 rounded-xl bg-emerald-700 text-white flex items-center justify-center font-black text-sm shadow-xs">
               ک
             </span>
-            <h3 className="font-bold text-slate-900 text-sm">
-              {step === 'mobile' && 'ورود یا ثبت‌نام'}
-              {step === 'login' && 'ورود به حساب'}
-              {step === 'register' && 'مشخصات حساب'}
-            </h3>
+            <div>
+              <h3 className="font-bold text-slate-900 text-base leading-tight">
+                {step === 'mobile' && 'ورود یا ثبت‌نام در کاربلد'}
+                {step === 'login' && 'ورود به حساب کاربری'}
+                {step === 'register' && 'تکمیل مشخصات حساب'}
+              </h3>
+              <p className="text-[11px] text-slate-500 font-medium">
+                سامانه کاریابی و ثبت نیازمندی
+              </p>
+            </div>
           </div>
           <button
             onClick={onClose}
-            className="w-6 h-6 rounded-full bg-slate-100 text-slate-500 flex items-center justify-center text-xs font-bold"
+            className="w-8 h-8 rounded-full bg-slate-100 text-slate-600 hover:bg-slate-200 flex items-center justify-center text-sm font-bold transition-colors cursor-pointer"
           >
             ✕
           </button>
@@ -456,20 +476,86 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, onLoginSu
               </div>
             </div>
 
-            {/* If Worker: Specialty */}
+            {/* If Worker: Specialty & Wage details */}
             {role === 'worker' && (
-              <div>
-                <label className="text-slate-600 block mb-0.5">تخصص اصلی:</label>
-                <select
-                  value={specialty}
-                  onChange={e => setSpecialty(e.target.value)}
-                  className="w-full h-8.5 px-2 rounded-lg bg-slate-50 border border-slate-200 text-xs font-bold"
-                >
-                  {SPECIALTIES.map(s => (
-                    <option key={s} value={s}>{s}</option>
-                  ))}
-                </select>
-              </div>
+              <>
+                <div className="grid grid-cols-2 gap-2">
+                  <div>
+                    <label className="text-slate-600 block mb-0.5">تخصص اصلی:</label>
+                    <select
+                      value={specialty}
+                      onChange={e => setSpecialty(e.target.value)}
+                      className="w-full h-8.5 px-2 rounded-lg bg-slate-50 border border-slate-200 text-xs font-bold"
+                    >
+                      {SPECIALTIES.map(s => (
+                        <option key={s} value={s}>{s}</option>
+                      ))}
+                    </select>
+                  </div>
+
+                  <div>
+                    <label className="text-slate-600 block mb-0.5">دستمزد روزانه (تومان):</label>
+                    <input
+                      type="number"
+                      value={dailyRate}
+                      onChange={e => setDailyRate(Number(e.target.value))}
+                      placeholder="۸۵۰,۰۰۰"
+                      className="w-full h-8.5 px-2 rounded-lg bg-slate-50 border border-slate-200 text-xs font-mono font-bold"
+                    />
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-2 gap-2">
+                  <div>
+                    <label className="text-slate-600 block mb-0.5">ساعت کاری روزانه:</label>
+                    <input
+                      type="text"
+                      value={workingHours}
+                      onChange={e => setWorkingHours(e.target.value)}
+                      placeholder="۰۸:۰۰ الی ۱۷:۰۰"
+                      className="w-full h-8.5 px-2 rounded-lg bg-slate-50 border border-slate-200 text-xs font-bold"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="text-slate-600 block mb-0.5">وعده‌های غذایی:</label>
+                    <select
+                      value={mealInclusion}
+                      onChange={e => setMealInclusion(e.target.value as any)}
+                      className="w-full h-8.5 px-2 rounded-lg bg-slate-50 border border-slate-200 text-xs font-bold text-emerald-800"
+                    >
+                      <option value="با ناهار و صبحانه">با ناهار و صبحانه</option>
+                      <option value="بدون ناهار و صبحانه">بدون ناهار و صبحانه</option>
+                      <option value="با صبحانه">با صبحانه</option>
+                      <option value="با ناهار">با ناهار</option>
+                      <option value="با ناهار و شام">با ناهار و شام</option>
+                      <option value="توافقی">توافقی</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div>
+                  <label className="text-slate-600 block mb-0.5">توضیحات کوتاه:</label>
+                  <input
+                    type="text"
+                    value={bio}
+                    onChange={e => setBio(e.target.value)}
+                    placeholder="مثال: ۱۵ سال سابقه سفیدکاری و ابزار زنی در مناطق مختلف"
+                    className="w-full h-8.5 px-2.5 rounded-lg bg-slate-50 border border-slate-200 text-xs"
+                  />
+                </div>
+
+                <div>
+                  <label className="text-slate-600 block mb-0.5">توضیحات کامل و سوابق کاری:</label>
+                  <textarea
+                    rows={2}
+                    value={fullBio}
+                    onChange={e => setFullBio(e.target.value)}
+                    placeholder="جزئیات کامل مهارت‌ها، سوابق پروژه‌ای، ابزارآلات شخصی، نحوه تحویل کار و ..."
+                    className="w-full p-2 rounded-lg bg-slate-50 border border-slate-200 text-xs resize-none"
+                  />
+                </div>
+              </>
             )}
 
             {/* Password */}
